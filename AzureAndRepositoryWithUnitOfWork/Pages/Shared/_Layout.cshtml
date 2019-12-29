@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>@ViewBag.Title</title>
+    <link href="~/lib/bootstrap/css/bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Azure Demo</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">                
+                <a class="nav-item nav-link" href="/EmployeeList">Employee <span class="sr-only">(current)</span></a>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        @RenderBody()
+    </div>
+    <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">Remove Confirmation</div>
+                <div class="modal-body">
+                    Are you sure, want to remove?.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-danger btn-ok">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/lib/jquery/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    @RenderSection("Scripts", false)
+    <script>
+        $(document).ready(function () {
+            $('#confirm-delete').on('show.bs.modal', function (e) {
+                $(this).find('.btn-ok').click(function () {
+                    $.ajax({
+                        url: $(e.relatedTarget).data('href'),
+                        headers: {
+                            RequestVerificationToken: $('input:hidden[name="__RequestVerificationToken"]').val()
+                        },
+                        type: "GET",
+                        success: function (data) {
+                            if (data.Success && $(e.relatedTarget).data('refresh-href')) {
+                                location.href = $(e.relatedTarget).data('refresh-href');
+                            }                            
+                        },
+                        error: function () {
+
+                        }
+                    })
+                });
+            });
+        })
+    </script>
+
+</body>
+</html>

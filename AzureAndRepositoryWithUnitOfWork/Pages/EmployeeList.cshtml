@@ -1,0 +1,44 @@
+﻿@page
+@model AzureAndRepositoryWithUnitOfWork.Pages.EmployeeListModel
+@{
+    ViewData["Title"] = "EmployeeList";
+}
+@Html.AntiForgeryToken()
+<h1>EmployeeList</h1>
+<div style="float:right"><a asp-page="AddEmployee" class="btn btn-primary">Add New</a></div>
+<table class="table table-sm table-dark">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">City</th>
+            <th scope="col">Salary</th>
+            <th scope="col">Created Date</th>
+            <th scope="col">#</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var employee in Model.Employees)
+        {
+            <tr>
+                <th scope="row">@employee.Id</th>
+                <td>@employee.Name</td>
+                <td>@employee.City</td>
+                <td>@employee.Salary</td>
+                <td>@employee.CreatedDate</td>
+                <td>
+                    <a href="@Url.Page("Employee",null,new { id= employee.Id })" class="btn btn-light">Edit</a>
+                    <a data-href="./EmployeeList?handler=DelEmployee&Id=@employee.Id" data-refresh-href="./EmployeeList" class="btn btn-danger btnRemove" data-toggle="modal" data-target="#confirm-delete">Remove</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@section Scripts {
+    <script>
+
+    </script>
+}
+

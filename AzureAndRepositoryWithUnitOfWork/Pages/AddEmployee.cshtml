@@ -1,0 +1,52 @@
+﻿@page
+@model AzureAndRepositoryWithUnitOfWork.Pages.AddEmployeeModel
+@{
+    ViewData["Title"] = "AddEmployee";
+}
+
+<h1>AddEmployee</h1>
+<br />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            @*<partial name="_AddEditEmployee" model="Model.Employee" />*@
+
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Employee.Name" class="control-label"></label>
+                <input asp-for="Employee.Name" class="form-control" />
+                <span asp-validation-for="Employee.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Employee.City" class="control-label"></label>
+                <input asp-for="Employee.City" class="form-control" />
+                <span asp-validation-for="Employee.City" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Employee.Salary" class="control-label"></label>
+                <input asp-for="Employee.Salary" class="form-control" />
+                <span asp-validation-for="Employee.Salary" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Employee.CreatedDate" class="control-label"></label>
+                <input asp-for="Employee.CreatedDate" class="form-control" />
+                <span asp-validation-for="Employee.CreatedDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./EmployeeList">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+
